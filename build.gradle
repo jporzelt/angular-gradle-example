@@ -37,11 +37,11 @@ node {
 
 
 
-npm_install {
-    args = ['@angular/cli']
+task installAngularCli(type: NpmTask) {
+    args = ['install', '@angular/cli', '--save-dev']
 }
 
-task createApp(dependsOn: 'npm_install', type: NodeTask){
+task createApp(dependsOn: 'installAngularCli', type: NodeTask){
     description 'Create Angular app'
     script = file("${appName}/node_modules/@angular/cli/bin/ng")
     args = ['new', appName]
@@ -56,6 +56,15 @@ task buildApp(dependsOn: 'npm_install', type: NodeTask){
     }
 }
 
+task serveApp(dependsOn: 'npm_install', type: NodeTask){
+    description 'Serve Angular app'
+    script = file("${appName}/node_modules/@angular/cli/bin/ng")
+    args = ['serve']
+    execOverrides {
+        it.workingDir = appName
+    }
+}
+
 clean {
     delete file("${project.buildDir}")
     delete file("${appName}/dist")
@@ -63,4 +72,4 @@ clean {
 //test.dependsOn npm_test
 war.dependsOn buildApp
 build.dependsOn buildApp
-task start(dependsOn: 'npm_start')
+task start(dependsOn: 'serveApp')

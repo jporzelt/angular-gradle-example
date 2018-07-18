@@ -13,3 +13,10 @@ set 'appName' in build.gradle then execute
 
 1. The distribution is created in appName/dist
 2. A war file is created in build/libs
+
+## Run app
+set 'appName' in build.gradle then execute
+
+`./gradlew start`
+
+Open your browser on http://localhost:4200/
