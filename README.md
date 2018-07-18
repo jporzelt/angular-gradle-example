@@ -20,3 +20,5 @@ set 'appName' in build.gradle then execute
 `./gradlew start`
 
 Open your browser on http://localhost:4200/
+
+TODO: starting the app locks the port, workaround: `sudo kill $(sudo lsof -t -i:4200)`
